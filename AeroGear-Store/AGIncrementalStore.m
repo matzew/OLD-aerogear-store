@@ -20,4 +20,23 @@
 
 @implementation AGIncrementalStore
 
++ (void)initialize {
+    [NSPersistentStoreCoordinator registerStoreClass:self forStoreType:[self type]];
+}
+
++ (NSString *)type {
+    return NSStringFromClass(self);
+}
+
+// setup...
+// requires to BE in the application....
++ (NSManagedObjectModel *)model {
+    return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"TaskModel" withExtension:@"xcdatamodeld"]];
+}
+
+//- (id <AFIncrementalStoreHTTPClient>)HTTPClient {
+//    return [TaskAPIClient sharedClient];
+//}
+
+
 @end

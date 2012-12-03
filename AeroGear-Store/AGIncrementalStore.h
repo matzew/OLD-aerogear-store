@@ -17,7 +17,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "AFIncrementalStore.h"
 
-@interface AGIncrementalStore : NSObject
+@interface AGIncrementalStore : AFIncrementalStore
 
 @end

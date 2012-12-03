@@ -17,6 +17,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "AGIncrementalStore.h"
 
 @interface AeroGear_StoreTests : SenTestCase
 
@@ -41,6 +42,11 @@
 - (void)testExample
 {
     // awesome test...
+    AGIncrementalStore* store = nil;
+    AFIncrementalStore *incrementalStore = nil;
+    
+    NSLog(@"\n\n\n@%@", [AGIncrementalStore type]);
+    
 }
 
 @end
