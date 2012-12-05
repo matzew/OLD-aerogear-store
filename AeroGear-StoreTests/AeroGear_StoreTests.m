@@ -19,11 +19,15 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "AGIncrementalStore.h"
 
+#import "AGIncrementalStoreHttpClient.h"
+
 @interface AeroGear_StoreTests : SenTestCase
 
 @end
 
-@implementation AeroGear_StoreTests
+@implementation AeroGear_StoreTests {
+    BOOL _finishedFlag;
+}
 
 - (void)setUp
 {
@@ -47,6 +51,26 @@
     
     NSLog(@"\n\n\n@%@", [AGIncrementalStore type]);
     
+}
+
+-(void) testIncHttpClient {
+    
+    NSURL* testURL = [NSURL URLWithString:@"http://todo-aerogear.rhcloud.com/todo-server/"];
+    AGIncrementalStoreHttpClient* httpClient = [AGIncrementalStoreHttpClient clientFor:testURL];
+    
+    [httpClient getPath:@"tasks" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"DA -> %@", responseObject);
+        
+        _finishedFlag = YES;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error -> %@", error);
+    }];
+    
+    
+    // keep the run loop going
+    while(!_finishedFlag) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
 }
 
 @end
