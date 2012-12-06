@@ -19,6 +19,33 @@
 #import <Foundation/Foundation.h>
 #import "AFIncrementalStore.h"
 
+#import <AeroGear/AeroGear.h>
+
+@protocol AGCoreDataAdapter;
+
 @interface AGIncrementalStore : AFIncrementalStore
+
+-(NSURL *) baseURL;
++(NSString *) modelName;
++(NSString *) extension;
+
+
+@end
+
+
+/**
+ The `AGCoreDataAdapter` protocol defines the methods used by the AeroGear IncrementalStore client to interract with the associated web services of an `AFIncrementalStore`.
+ */
+@protocol AGCoreDataAdapter <NSObject>
+
+//// I really need the baseURL - for now
+////-(id<AGPipeConfig>) pipeConfiguration;
+//-(NSURL *) baseURL;
+//
+////these two are more a "model config"
+//-(NSString *) modelName;
+//-(NSString *) extension;
+
+
 
 @end

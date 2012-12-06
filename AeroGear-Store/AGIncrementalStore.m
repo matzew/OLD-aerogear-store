@@ -17,6 +17,7 @@
  */
 
 #import "AGIncrementalStore.h"
+#import "AGIncrementalStoreHttpClient.h"
 
 @implementation AGIncrementalStore
 
@@ -31,12 +32,28 @@
 // setup...
 // requires to BE in the application....
 + (NSManagedObjectModel *)model {
-    return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"TaskModel" withExtension:@"xcdatamodeld"]];
+    //return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:[self modelName] withExtension:@"xcdatamodeld"]];
+    return [[NSManagedObjectModel alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:[self modelName] withExtension:[self extension]]];
 }
 
-//- (id <AFIncrementalStoreHTTPClient>)HTTPClient {
-//    return [TaskAPIClient sharedClient];
-//}
+// it's a getter of AFIncStore...
+- (id <AFIncrementalStoreHTTPClient>)HTTPClient {
+    
+    // THIS needs to be initialized ...............
+    return [AGIncrementalStoreHttpClient clientFor:[self baseURL]];
+}
 
+
+-(NSURL *) baseURL {
+@throw([NSException exceptionWithName:AFIncrementalStoreUnimplementedMethodException reason:NSLocalizedString(@"Unimplemented method: -baseURL. Must be overridden in a subclass", nil) userInfo:nil]);
+}
+
++(NSString *) modelName {
+ @throw([NSException exceptionWithName:AFIncrementalStoreUnimplementedMethodException reason:NSLocalizedString(@"Unimplemented method: +modelName. Must be overridden in a subclass", nil) userInfo:nil]);
+}
+
++(NSString *) extension {
+ @throw([NSException exceptionWithName:AFIncrementalStoreUnimplementedMethodException reason:NSLocalizedString(@"Unimplemented method: +extension. Must be overridden in a subclass", nil) userInfo:nil]);   
+}
 
 @end
